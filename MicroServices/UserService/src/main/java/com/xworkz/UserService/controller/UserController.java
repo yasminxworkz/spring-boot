@@ -23,7 +23,7 @@ import lombok.extern.slf4j.Slf4j;
 public class UserController {
 	
 	
-	UserService service;
+	private UserService service;
 	
 	@PostMapping
 	public ResponseEntity<UserEntity> saveUser(@RequestBody UserEntity user){

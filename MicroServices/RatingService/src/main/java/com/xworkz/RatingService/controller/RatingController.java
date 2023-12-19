@@ -26,7 +26,7 @@ import lombok.extern.slf4j.Slf4j;
 public class RatingController {
 	
 	@Autowired
-	RatingService service;
+	private RatingService service;
 	
 	public RatingController() {
 		log.info("running RatingController..........");
