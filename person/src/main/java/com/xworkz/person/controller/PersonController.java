@@ -18,21 +18,25 @@ import org.springframework.web.bind.annotation.RestController;
 import com.xworkz.person.dto.PersonDTO;
 import com.xworkz.person.service.PersonService;
 
-import io.swagger.annotations.Api;
+import io.swagger.v3.oas.annotations.Hidden;
+import io.swagger.v3.oas.annotations.Operation;
+
+
 
 @RestController
-@Api
-@RequestMapping("/personController")
+
+@RequestMapping("/restAPI")
 
 public class PersonController {
 
 	@Autowired
-	PersonService service;
+	private PersonService service;
 	
 	public PersonController() {
          System.err.println("running PersonController.........................");	
          }
 	
+	@Hidden
 	@GetMapping(value = "/run")
 	public List<PersonDTO> onRun() {
 		
@@ -50,11 +54,24 @@ public class PersonController {
 		return list;
 	}
 	
+
+	@Operation(
+			summary = "Post operation on person",
+			description = "It  saves the  data of a particular person"
+			
+			)
+	
 	@PostMapping
 	public String onSave(@RequestBody PersonDTO dto) {
 		service.onSave(dto);
 		return "saved successfully";
 	}
+	
+	@Operation(
+			summary = "Get operation on person",
+			description = "It  retrieves the  data "
+			
+			)
 	
 	@GetMapping
 	public List<PersonDTO> onFindAll(){
@@ -70,6 +87,11 @@ public class PersonController {
 		return list;
   	}
 	
+	@Operation(
+			summary = "Get operation on person",
+			description = "It  retrieves the  data of a particular person based on Id"
+			
+			)
 	@GetMapping(value = "{id}" )
 	public Optional<PersonDTO> findById(@PathVariable Integer id){
 		System.err.println("==========================================================");
@@ -81,6 +103,11 @@ public class PersonController {
 	}
 	
 	
+	@Operation(
+			summary = "Delete operation on person",
+			description = "It  deletes the  data of a particular person using person Id"
+			
+			)
 	@DeleteMapping(value = "{id}" ,consumes  = MediaType.APPLICATION_JSON_VALUE)
 	public String deleteById(@PathVariable Integer id){
 		System.err.println("==========================================================");
@@ -88,6 +115,12 @@ public class PersonController {
 		
 		return "deleted";
 	}
+	
+	@Operation(
+			summary = "Put operation on person",
+			description = "It  updates the  data of a particular person using person Id"
+			
+			)
 	
 	@PutMapping
 	public PersonDTO onUpdate(@RequestBody PersonDTO dto) {
